@@ -5,8 +5,6 @@
  */
 package com.fly4;
 
-import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.io.StreamTokenizer;
@@ -118,13 +116,242 @@ public class Controller{
               this.map.put(command, new ArrayList<>());
               this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
               switch(command){
+                  case "new":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "interlace":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "killbrush":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "killtile":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "killstyle":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
                   case "size":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_EOL));
                       break;
+                  case "quality":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "type":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "setbrush":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "settile":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "line":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "dline":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "rect":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "frect":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "getpixel":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "transparent":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "string":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "stringup":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "setpixel":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                    case "copy":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                    case "copyresized":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "colourchange":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                    case "poly":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                    case "fpoly":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "rotate":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "fill":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "filltoborder":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(9,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                   case "arc":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(9,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                    case "ellipse":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                    case "circle":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL));
+                      break;   
+                    case "fcircle":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(2,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL));
+                      break;   
                       
-              }
+                      
+                
+                      
+       }
         }
         
         

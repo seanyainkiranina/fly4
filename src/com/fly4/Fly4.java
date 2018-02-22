@@ -32,7 +32,7 @@ public class Fly4 {
             return;
         }
        // success = iHandler.setInFile()
-        
+       int numberParameters =0; 
        Boolean eof =false;
        do{
            int token = iHandler.getToken();
@@ -47,10 +47,16 @@ public class Fly4 {
                   {
                       command = iHandler.getString();
                       parameterList = commandController.parameterList(command);
-                      for (Parameter param: parameterList){
+                      numberParameters=parameterList.size();
+                      for (int counter = 0; counter < numberParameters; counter++) {
+                          Parameter param = parameterList.get(counter);
                           token = iHandler.getToken();
-                          if (param.getKindOfParameter() != token ){
+                          if (param.getKindOfParameter() != token && param.getAlternateKindOfParameter() != token){
                               throw new Exception("Bad Parameter");
+                          }
+                          if (token==param.getAlternateKindOfParameter()){
+                              numberParameters++;
+                              parameterList.add(new Parameter(param.getKindOfParameter(),param.getAlternateKindOfParameter()));
                           }
                           if (token == StreamTokenizer.TT_WORD){
                               param.setText(iHandler.getString());
@@ -58,6 +64,8 @@ public class Fly4 {
                           if (token == StreamTokenizer.TT_NUMBER){
                               param.setDouble(iHandler.getDouble());
                           }
+                          
+                          counter++;
                       }
                           parserEngine.execute(command, parameterList);
                       

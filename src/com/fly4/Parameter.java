@@ -13,10 +13,18 @@ public class Parameter {
     private Double number;
     private String text;
     private int kindOfParameter;
+    private int alternateKindOfParameter;
     
     public Parameter(int kindOfParameter){
         this.kindOfParameter = kindOfParameter;
+        this.alternateKindOfParameter = -1;
     }
+    
+    public Parameter(int kindOfParameter,int alternateKindOfParameter){
+        this.kindOfParameter = kindOfParameter;
+        this.alternateKindOfParameter = alternateKindOfParameter;
+    }
+    
     
     public void setText(String text){
         
@@ -41,5 +49,17 @@ public class Parameter {
         return this.kindOfParameter;
         
     }
+    private void setKindOfParamter(int kindOfParameter){
+        
+        this.kindOfParameter = kindOfParameter;
+        this.alternateKindOfParameter = -1;
+    }
+    
+    public int getAlternateKindOfParameter(){
+        
+        return this.alternateKindOfParameter;
+        
+    }
+    
     
 }
