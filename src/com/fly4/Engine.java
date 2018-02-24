@@ -5,8 +5,11 @@
  */
 package com.fly4;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,13 +18,12 @@ import java.util.HashMap;
 public class Engine {
   
     private RenderEngine rE = null;
-    private String lastCommand;
-    private int parameterCounter = -1;
     private final HashMap<String, ArrayList<Parameter>> map = new HashMap<>();
     
     
     public Engine(){
         
+        this.rE = new RenderEngine();
         
     }
     
@@ -29,58 +31,30 @@ public class Engine {
         
         
     }
-    public void endLine(){
-        
-        this.parameterCounter=-1;
-  
-    }
-    public String add(String token){
-    
-        if (this.parameterCounter == -1)
-        {
-            this.lastCommand = token;
-        }
-        
-        this.parameterCounter++;
-
-        switch (this.lastCommand){
+    public String execute(String command,ArrayList<Parameter> parameterList){
+      
+        switch(command){
             case "new":
                 this.rE = new RenderEngine();
                 break;
             case "name":
-                if (this.parameterCounter>0){
-                    this.rE.setOutImageName(token);
-                }
+                this.rE.setOutImageName(parameterList.get(0).getText());
                 break;
-            case "copyresized":
-                 if (this.parameterCounter>0){
-                     this.rE.setInImageName(token);
-                 }
-                break;
-        }
-        
-        return "Added " + token;
-    }
-    public String addNumber(double token){
-        
-        this.parameterCounter++;
-        switch(this.lastCommand){
             case "size":
-                if (this.parameterCounter ==1){
-                    this.rE.setHeight((int)token);
-                }
-                if (this.parameterCounter ==2){
-                    this.rE.setWidth((int)token);
-                }
+                this.rE.setHeightWidth(parameterList.get(0).getDouble(), parameterList.get(0).getDouble());
                 break;
+            case "end":
+                try {
+                    this.rE.end();
+                } catch (IOException ex) {
+                    System.err.println(ex.getMessage());
+                    return ex.getLocalizedMessage();
+               }
+                break;
+            
+              
+            
         }
-        
-        
-        return "Added " + token;
-    }
-    
-    public String execute(String command,ArrayList<Parameter> parameterList){
-        
          this.map.put(command, parameterList);
     
         return "Sucess";

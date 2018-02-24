@@ -57,6 +57,8 @@ public class Fly4 {
                           if (token==param.getAlternateKindOfParameter()){
                               numberParameters++;
                               parameterList.add(new Parameter(param.getKindOfParameter(),param.getAlternateKindOfParameter()));
+                              param.setKindOfParameter(token);
+                        
                           }
                           if (token == StreamTokenizer.TT_WORD){
                               param.setText(iHandler.getString());

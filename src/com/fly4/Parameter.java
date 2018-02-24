@@ -49,7 +49,7 @@ public class Parameter {
         return this.kindOfParameter;
         
     }
-    private void setKindOfParamter(int kindOfParameter){
+    public void setKindOfParameter(int kindOfParameter){
         
         this.kindOfParameter = kindOfParameter;
         this.alternateKindOfParameter = -1;
