@@ -17,7 +17,7 @@ public class Parameter {
     
     public Parameter(int kindOfParameter){
         this.kindOfParameter = kindOfParameter;
-        this.alternateKindOfParameter = -1;
+        this.alternateKindOfParameter = 9999;
     }
     
     public Parameter(int kindOfParameter,int alternateKindOfParameter){
@@ -52,7 +52,7 @@ public class Parameter {
     public void setKindOfParameter(int kindOfParameter){
         
         this.kindOfParameter = kindOfParameter;
-        this.alternateKindOfParameter = -1;
+        this.alternateKindOfParameter = 9999;
     }
     
     public int getAlternateKindOfParameter(){

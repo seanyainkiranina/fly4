@@ -31,7 +31,7 @@ public final class InternalHandler {
       
             if (this.outputFile == null){
                 
-               System.out.println(text);
+               System.out.println("i " + text);
             }
             else{
                 
@@ -122,8 +122,11 @@ public final class InternalHandler {
             this.stTokenizer.wordChars('_', '_'); // Don't parse slash as part of numbers.
             this.stTokenizer.wordChars('\\', '\\'); // Don't parse slash as part of numbers.
             this.stTokenizer.wordChars(':', ':'); // Don't parse slash as part of numbers.
-
-
+            this.stTokenizer.wordChars('\'', '\''); // Don't parse slash as part of numbers.
+   
+            this.stTokenizer.whitespaceChars(' ', ' ');
+            this.stTokenizer.whitespaceChars(',', ',');
+           
             
        }
        catch(Exception ex){

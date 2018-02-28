@@ -19,7 +19,7 @@ public class Fly4 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // TODO code application logic here
         InternalHandler iHandler = new InternalHandler();
         Engine parserEngine = new Engine();
@@ -43,23 +43,30 @@ public class Fly4 {
                   eof = true;
                   break;
                 case StreamTokenizer.TT_WORD:
-                  try
-                  {
+               //   try
+               //   {
                       command = iHandler.getString();
                       parameterList = commandController.parameterList(command);
                       numberParameters=parameterList.size();
+                      System.out.println(numberParameters);
                       for (int counter = 0; counter < numberParameters; counter++) {
                           Parameter param = parameterList.get(counter);
                           token = iHandler.getToken();
-                          if (param.getKindOfParameter() != token && param.getAlternateKindOfParameter() != token){
-                              throw new Exception("Bad Parameter");
+                          
+                          if (token == StreamTokenizer.TT_EOF || token == StreamTokenizer.TT_EOL){
+                              break;
                           }
+                       
+                          if (param.getKindOfParameter() != token && param.getAlternateKindOfParameter() != token){
+                              throw new Exception( param.getKindOfParameter() + " " + param.getAlternateKindOfParameter()  + " " + command + " " + token + " Bad Parameter");
+                          }
+                          
                           if (token==param.getAlternateKindOfParameter()){
                               numberParameters++;
                               parameterList.add(new Parameter(param.getKindOfParameter(),param.getAlternateKindOfParameter()));
                               param.setKindOfParameter(token);
-                        
                           }
+                          
                           if (token == StreamTokenizer.TT_WORD){
                               param.setText(iHandler.getString());
                           }
@@ -67,16 +74,18 @@ public class Fly4 {
                               param.setDouble(iHandler.getDouble());
                           }
                           
-                          counter++;
+                         
                       }
                           parserEngine.execute(command, parameterList);
                       
                       
-                  }
-                  catch(Exception ex){
-                      System.err.println(ex.getMessage());
-                      return;
-                  }
+             //     }
+             //     catch(Exception ex){
+             //         System.err.println(ex);
+               
+             //         System.err.println(ex.getMessage());
+             //         return;
+             //     }
                   break;
            }
        }while (eof != true);

@@ -30,17 +30,20 @@ public class RenderEngine {
     
     public RenderEngine(){
         
-        this.colorMap = new HashMap<String,Color>();
+        this.colorMap = new HashMap<>();
        
         
     }
     public String end() throws IOException{
+  
+         // this.g2d.dispose();
         
-          this.g2d.dispose();
  
+        //  System.out.println("test");
         // extracts extension of output file
-          String formatName = this.outImage.substring(this.outImage
-                    .lastIndexOf(".") + 1);
+        System.out.println(this.outImage);
+         String formatName = this.outImage.substring(this.outImage.lastIndexOf(".") + 1);
+         System.out.println(formatName);
  
         // writes to output file
             ImageIO.write(this.outputImage, formatName, new File(this.outImage));
@@ -52,8 +55,13 @@ public class RenderEngine {
     
     private void buildImage(){
         
-        this.outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        this.outputImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB);
         this.g2d = outputImage.createGraphics();
+        
+        Color transparent = new Color(255,255,255,1); 
+        
+        this.g2d.setBackground(transparent);
+        this.g2d.clearRect(0, 0, this.width, this.height);
         
     }
     
@@ -84,8 +92,10 @@ public class RenderEngine {
     
     private Color checkColor(double r,double g, double b){
         
-        if (this.outputImage == null){
+        if (this.g2d == null){
+            
             this.buildImage();
+                    
         }
         
         String colorKey = Double.toHexString(r) + Double.toHexString(g) + Double.toHexString(b);
@@ -104,7 +114,9 @@ public class RenderEngine {
     
     public String setPixel(double x,double y,double r, double g, double b){
         
-        this.g2d.setColor(this.checkColor(r, g, b));
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
         
         this.g2d.drawLine((int)x, (int)y, (int)x, (int)y);
         
@@ -114,7 +126,9 @@ public class RenderEngine {
    
     public String line(double x1,double y1,double x2,double y2,double r, double g, double b){
         
-        this.g2d.setColor(this.checkColor(r, g, b));
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
         
         this.g2d.drawLine((int)x1,(int)y1,(int)x2,(int)y2);
         
@@ -124,8 +138,10 @@ public class RenderEngine {
     }
       public String dline(double x1,double y1,double x2,double y2,double r, double g, double b){
    
-        this.g2d.setColor(this.checkColor(r, g, b));
-   
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
         this.g2d.drawLine((int)x1,(int)y1,(int)x2,(int)y2);
         
         return "line drawn";
@@ -135,8 +151,10 @@ public class RenderEngine {
   
     public String rect(double x1,double y1,double x2,double y2,double r, double g, double b)
     {
-         this.g2d.setColor(this.checkColor(r, g, b));
-   
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
          this.g2d.drawRect((int)x1,(int)y1,(int)x2,(int)y2);
         
         return "rect drawn";
@@ -145,17 +163,22 @@ public class RenderEngine {
     public String frect(double x1,double y1,double x2,double y2,double r, double g, double b)
     {
    
-         this.g2d.setColor(this.checkColor(r, g, b));
-   
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
+        
          this.g2d.fillRect((int)x1,(int)y1,(int)x2,(int)y2);
         
         return "rect drawn";
     }
     public String fill(double r, double g, double b)
     {
-    
-        this.g2d.setColor(this.checkColor(r, g, b));
-   
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
+        
          this.g2d.fillRect(0,this.height,this.width,this.height);
        
         return "fill";
@@ -163,18 +186,26 @@ public class RenderEngine {
     
     public String arc(double x1,double y1,double x2,double y2,double x3,double y3,double r, double g, double b)
     {
-         this.g2d.setColor(this.checkColor(r, g, b));
-   
-         this.g2d.drawArc((int)x1,(int)y1,(int)x2,(int)y2,(int)x3,(int)y3);
+        Color myColor = this.checkColor(r, g, b);
         
+        this.g2d.setColor(myColor);
+        
+         double rad = x2/2;
+   
+         this.g2d.drawArc((int) ((int)x1 - rad), (int) ((int) y1 -rad), (int)x2,(int)y2,(int)x3, -(int)y3);
+            
         return "drawn";
     }
     
     public String circle(double x1,double y1,double x2,double r, double g, double b)
     {
-         this.g2d.setColor(this.checkColor(r, g, b));
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
+        double rad = x2/2;
    
-         this.g2d.drawOval((int)x1,(int) y1, (int)x2,(int) x2);
+         this.g2d.drawOval((int) ((int)x1 - rad), (int) ((int) y1 -rad), (int)x2,(int) x2);
                  // drawCircle((int)x1,(int)y1,(int)x2);
         
         return "drawn";
@@ -182,8 +213,10 @@ public class RenderEngine {
     
     public String fOval(double x1,double y1,double x2,double y2,double r, double g, double b)
     {
-         this.g2d.setColor(this.checkColor(r, g, b));
-   
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
          this.g2d.fillOval((int)x1,(int) y1, (int)x2,(int) y2);
                  // drawCircle((int)x1,(int)y1,(int)x2);
         
@@ -216,11 +249,16 @@ public class RenderEngine {
     
     public String fcircle(double x1,double y1,double x2,double r, double g, double b)
     {
-         this.g2d.setColor(this.checkColor(r, g, b));
-   
-         this.g2d.fillOval((int)x1,(int) y1, (int)x2,(int) x2);
-                 // drawCircle((int)x1,(int)y1,(int)x2);
+        Color myColor = this.checkColor(r, g, b);
         
+        this.g2d.setColor(myColor);
+        
+        double rad = x2/2;
+   
+         this.g2d.fillOval((int) ((int)x1 - rad), (int) ((int) y1 -rad), (int)x2,(int) x2);
+                 // drawCircle((int)x1,(int)y1,(int)x2);
+                 
+                 
         return "drawn";
     }
     
@@ -242,7 +280,9 @@ public class RenderEngine {
         Double r =  this.parameterPop(polyOptions);
         Double xPoint =0.0;
         Double yPoint =0.0;
-        this.g2d.setColor(this.checkColor(r, g, b));
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
         
         int numberOfPoints = polyOptions.size();
         if (numberOfPoints % 2 !=0){
@@ -276,7 +316,9 @@ public class RenderEngine {
         Double r =  this.parameterPop(polyOptions);
         Double xPoint =0.0;
         Double yPoint =0.0;
-        this.g2d.setColor(this.checkColor(r, g, b));
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
         
         int numberOfPoints = polyOptions.size();
         if (numberOfPoints % 2 !=0){
@@ -302,7 +344,13 @@ public class RenderEngine {
         return "drawn";
     }
    public String transparent(Double r,Double g,Double b){
-       Color newColor = new Color(r.floatValue(), g.floatValue(), b.floatValue(),1); 
+       
+        if (this.g2d == null){
+            
+            this.buildImage();
+                    
+        }
+       Color newColor = new Color(r.intValue(), g.intValue(), b.intValue(),0); 
        this.g2d.setColor(newColor);
        String colorKey = Double.toHexString(r) + Double.toHexString(g) + Double.toHexString(b);
        this.colorMap.put(colorKey,newColor);
@@ -311,9 +359,13 @@ public class RenderEngine {
        
    }
      
-   public String string(Double r,Double g,Double b,Double x, Double y,String size,String text){
+   public String string(Double r,Double g,Double b,Double x, Double y,String size,String[] text){
        
-        this.g2d.setColor(this.checkColor(r, g, b));
+        
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
         int fontSize =10;
         
         switch (size){
@@ -337,15 +389,24 @@ public class RenderEngine {
                 break;
         }
         this.g2d.setFont(new Font("Courier", Font.PLAIN, fontSize));
-     
-        this.g2d.drawString(text,x.intValue(), y.intValue());
+        
+        String outputString ="";
+         for (int i = 0; i < text.length; i++)
+         {
+             outputString = outputString + text[i] + " ";
+
+        }
+        this.g2d.drawString(outputString,x.intValue(), y.intValue());
         
         return "text drawn";
    }
    
-    public String stringUp(Double r,Double g,Double b,Double x, Double y,String size,String text){
+    public String stringUp(Double r,Double g,Double b,Double x, Double y,String size,String[] text){
        
-        this.g2d.setColor(this.checkColor(r, g, b));
+        Color myColor = this.checkColor(r, g, b);
+        
+        this.g2d.setColor(myColor);
+        
         int fontSize =10;
         int angle =90;
         
@@ -370,13 +431,22 @@ public class RenderEngine {
                 break;
         }
         
+        
+        
+        String outputString ="";
+         for (int i = 0; i < text.length; i++)
+         {
+             outputString = outputString + text[i] + " ";
+
+        }
+        
+        
         this.g2d.translate(x.floatValue(),y.floatValue());
         this.g2d.rotate(Math.toRadians(angle));
-        this.g2d.drawString(text,0,0);
-        
+           
         this.g2d.setFont(new Font("Courier", Font.PLAIN, fontSize));
      
-        this.g2d.drawString(text,0, 0);
+        this.g2d.drawString(outputString,0, 0);
         
         this.g2d.rotate(-Math.toRadians(angle));
         this.g2d.translate(-x.floatValue(),-y.floatValue());

@@ -61,7 +61,7 @@ public class Controller{
     public ArrayList<Parameter> parameterList(String command) throws Exception{
         if (this.map.containsKey(command)==false){
             
-            throw new Exception("Bad Command");
+            throw new Exception("Bad Command " + command);
         }
         
         return this.map.get(command);
@@ -111,12 +111,16 @@ public class Controller{
         commands.add("rotate");
         commands.add("type");
         commands.add("quality");
+        commands.add("end");
+        
         
         for (String command: commands){
               this.map.put(command, new ArrayList<>());
-              this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
               switch(command){
                   case "new":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                 case "end":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_EOL));
                       break;
                   case "interlace":
@@ -138,6 +142,10 @@ public class Controller{
                       break;
                   case "quality":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_EOL));
+                      break;
+                  case "name":
+                      this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_WORD));
                       this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_EOL));
                       break;
                   case "type":
@@ -215,7 +223,7 @@ public class Controller{
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_WORD));
                       this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_WORD));
                       break;
                    case "stringup":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -225,7 +233,7 @@ public class Controller{
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_WORD));
                       this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_WORD));
                       break;
                    case "setpixel":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -254,7 +262,7 @@ public class Controller{
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
                       break;
                   case "colourchange":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -263,7 +271,7 @@ public class Controller{
                       this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
-                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL));
                       break;
                     case "poly":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -272,7 +280,7 @@ public class Controller{
                       this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
-                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL));
                       break;
                     case "fpoly":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -281,7 +289,7 @@ public class Controller{
                       this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
-                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL));
                       break;
                    case "rotate":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
