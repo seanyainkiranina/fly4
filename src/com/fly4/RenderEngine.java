@@ -18,11 +18,11 @@ import java.util.HashMap;
 public class RenderEngine {
     private int width =100;
     private int height =100;
-    private String inImage;
-    private String outImage ="out.png";
-    private File inputFile;
-    private BufferedImage inputImage;
-    private BufferedImage outputImage;
+    private String inImageName;
+    private String outImageName ="out.png";
+    private File inputFileIO;
+    private BufferedImage inputImageBufferedImage;
+    private BufferedImage outputImageBufferedImage;
     private Graphics2D g2d;
     private HashMap<String,Color> colorMap;
     
@@ -38,15 +38,15 @@ public class RenderEngine {
   
          // this.g2d.dispose();
         
+         if (this.outputImageBufferedImage==null){
+             this.buildImage();
+         }
  
-        //  System.out.println("test");
-        // extracts extension of output file
-        System.out.println(this.outImage);
-         String formatName = this.outImage.substring(this.outImage.lastIndexOf(".") + 1);
-         System.out.println(formatName);
- 
+           // extracts extension of output file
+         String formatName = this.outImageName.substring(this.outImageName.lastIndexOf(".") + 1);
+   
         // writes to output file
-            ImageIO.write(this.outputImage, formatName, new File(this.outImage));
+            ImageIO.write(this.outputImageBufferedImage, formatName, new File(this.outImageName));
           
         
         
@@ -55,10 +55,10 @@ public class RenderEngine {
     
     private void buildImage(){
         
-        this.outputImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB);
-        this.g2d = outputImage.createGraphics();
+        this.outputImageBufferedImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_4BYTE_ABGR);
+        this.g2d = outputImageBufferedImage.createGraphics();
         
-        Color transparent = new Color(255,255,255,1); 
+        Color transparent = new Color(255,255,255,0); 
         
         this.g2d.setBackground(transparent);
         this.g2d.clearRect(0, 0, this.width, this.height);
@@ -81,12 +81,17 @@ public class RenderEngine {
     
     public void setInImageName(String name){
         
-        this.inImage = name;
+        if (this.outputImageBufferedImage==null){
+            
+            this.buildImage();
+        }
+        
+        this.inImageName = name;
     }
     
     public void setOutImageName(String name){
      
-        this.outImage = name;
+        this.outImageName = name;
         
     }
     
@@ -211,21 +216,6 @@ public class RenderEngine {
         return "drawn";
     }
     
-    public String fOval(double x1,double y1,double x2,double y2,double r, double g, double b)
-    {
-        Color myColor = this.checkColor(r, g, b);
-        
-        this.g2d.setColor(myColor);
-        
-         this.g2d.fillOval((int)x1,(int) y1, (int)x2,(int) y2);
-                 // drawCircle((int)x1,(int)y1,(int)x2);
-        
-        return "drawn";
-    }
-    
-    
-    
-    
     public String oval(double x1,double y1,double x2,double y2,double r, double g, double b)
     {
          this.g2d.setColor(this.checkColor(r, g, b));
@@ -263,10 +253,26 @@ public class RenderEngine {
     }
     
     
+    private Double parameterShift(ArrayList<Parameter> polyOptions){
+        
+        Parameter p = polyOptions.get(0);
+        polyOptions.remove(0);
+        
+        
+        return p.getDouble();
+    }
+    
+    
     private Double parameterPop(ArrayList<Parameter> polyOptions){
         
-        Parameter p = polyOptions.get(polyOptions.size() - 1);
-        polyOptions.remove(polyOptions.size() - 1);
+        int length = polyOptions.size() -1;
+        Parameter p = polyOptions.get(length);
+        polyOptions.remove(length);
+        while (p != null && length>-1){
+            length = polyOptions.size() -1;
+            p = polyOptions.get(length);
+            polyOptions.remove(length);
+        }
         
         return p.getDouble();
     }
@@ -274,51 +280,54 @@ public class RenderEngine {
     
     public String poly(ArrayList<Parameter> polyOptions) throws Exception
     {
-        
-        Double b =  this.parameterPop(polyOptions);
-        Double g =  this.parameterPop(polyOptions);
-        Double r =  this.parameterPop(polyOptions);
-        Double xPoint =0.0;
-        Double yPoint =0.0;
-        Color myColor = this.checkColor(r, g, b);
-        
-        this.g2d.setColor(myColor);
-        
+        Double r = this.parameterShift(polyOptions);
+        Double g = this.parameterShift(polyOptions);
+        Double b = this.parameterShift(polyOptions);
+        Double xPoint = 0.0;
+        Double yPoint = 0.0;
+
         int numberOfPoints = polyOptions.size();
-        if (numberOfPoints % 2 !=0){
-            
+        if (numberOfPoints % 2 != 0) {
+
             throw new Exception("uneven number of points");
-            
+
         }
-        int x[] = new int[numberOfPoints/2]; 
-        int y[] = new int[numberOfPoints/2]; 
-        int counter=0;
-        
-        while (counter<(numberOfPoints/2)){
-            yPoint = this.parameterPop(polyOptions);
-            xPoint= this.parameterPop(polyOptions);
-            y[counter]=yPoint.intValue();
-            x[counter]=xPoint.intValue();
-            
+        int halfPoints = numberOfPoints / 2;
+
+        int counter = 0;
+        Polygon p = new Polygon();
+        while (counter < halfPoints) {
+            xPoint = this.parameterShift(polyOptions);
+            yPoint = this.parameterShift(polyOptions);
+            if (xPoint != null && yPoint != null) {
+                p.addPoint(xPoint.intValue(), yPoint.intValue());
+            }
             counter++;
         }
-        
-        this.g2d.drawPolygon(x, y, numberOfPoints);
-   
+
+        Color myColor = this.checkColor(r, g, b);
+        this.g2d.setColor(myColor);
+        this.g2d.drawPolygon(p);
+
         return "drawn";
+
+    }
+    
+    public String flood(int x, int y,Color tgtColor) {
+        
+        
+        
+        return "filled";
     }
     
      public String fpoly(ArrayList<Parameter> polyOptions) throws Exception
     {
         
-        Double b =  this.parameterPop(polyOptions);
-        Double g =  this.parameterPop(polyOptions);
-        Double r =  this.parameterPop(polyOptions);
+        Double r =  this.parameterShift(polyOptions);
+        Double g =  this.parameterShift(polyOptions);
+        Double b =  this.parameterShift(polyOptions);
         Double xPoint =0.0;
         Double yPoint =0.0;
-        Color myColor = this.checkColor(r, g, b);
-        
-        this.g2d.setColor(myColor);
         
         int numberOfPoints = polyOptions.size();
         if (numberOfPoints % 2 !=0){
@@ -326,22 +335,28 @@ public class RenderEngine {
             throw new Exception("uneven number of points");
             
         }
-        int x[] = new int[numberOfPoints/2]; 
-        int y[] = new int[numberOfPoints/2]; 
+        int halfPoints=numberOfPoints/2;
+   
         int counter=0;
-        
-        while (counter<(numberOfPoints/2)){
-            yPoint = this.parameterPop(polyOptions);
-            xPoint= this.parameterPop(polyOptions);
-            y[counter]=yPoint.intValue();
-            x[counter]=xPoint.intValue();
-            
+        Polygon p = new Polygon();
+        while (counter<halfPoints){
+            xPoint= this.parameterShift(polyOptions);
+            yPoint = this.parameterShift(polyOptions);
+            if (xPoint != null && yPoint != null){
+                    p.addPoint(xPoint.intValue(), yPoint.intValue());
+            }
             counter++;
         }
         
-        this.g2d.fillPolygon(x, y, numberOfPoints);
+      
+        Color myColor = this.checkColor(r, g, b);
+        this.g2d.setColor(myColor);
+        this.g2d.drawPolygon(p);
+      
+        this.g2d.fillPolygon(p);
    
         return "drawn";
+        
     }
    public String transparent(Double r,Double g,Double b){
        
@@ -458,7 +473,7 @@ public class RenderEngine {
     public String resize(){
         try
         {
-            File inputFile = new File(this.inImage);
+            File inputFile = new File(this.inImageName);
             BufferedImage inputImage = ImageIO.read(inputFile);
             BufferedImage outputImage = new BufferedImage(this.width,
                 this.height, inputImage.getType());
@@ -468,18 +483,18 @@ public class RenderEngine {
             g2d.dispose();
  
         // extracts extension of output file
-            String formatName = this.outImage.substring(this.outImage
+            String formatName = this.outImageName.substring(this.outImageName
                     .lastIndexOf(".") + 1);
  
         // writes to output file
-            ImageIO.write(outputImage, formatName, new File(this.outImage));
+            ImageIO.write(outputImage, formatName, new File(this.outImageName));
             
             return "Success";
         
         }
         catch(Exception ex){
             
-            return "Error XX " + this.inImage + " " + this.outImage + ' ' + ex.getMessage();
+            return "Error XX " + this.inImageName + " " + this.outImageName + ' ' + ex.getMessage();
         }
         
         

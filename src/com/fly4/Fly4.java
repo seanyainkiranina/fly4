@@ -48,7 +48,7 @@ public class Fly4 {
                       command = iHandler.getString();
                       parameterList = commandController.parameterList(command);
                       numberParameters=parameterList.size();
-                      System.out.println(numberParameters);
+                //     System.out.println(numberParameters);
                       for (int counter = 0; counter < numberParameters; counter++) {
                           Parameter param = parameterList.get(counter);
                           token = iHandler.getToken();

@@ -280,8 +280,8 @@ public class Controller{
                       this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
-                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL));
-                      break;
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
+                break;
                     case "fpoly":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -289,7 +289,7 @@ public class Controller{
                       this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
-                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
                       break;
                    case "rotate":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));

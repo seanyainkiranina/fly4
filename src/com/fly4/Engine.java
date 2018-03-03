@@ -31,31 +31,40 @@ public class Engine {
         
         
     }
-    public String execute(String command,ArrayList<Parameter> parameterList){
+    public String execute(String command,ArrayList<Parameter> parameterList) throws Exception{
         switch(command){
             case "new":
                 this.rE = new RenderEngine();
-                System.out.println("new");
                 break;
             case "name":
                 this.rE.setOutImageName(parameterList.get(0).getText());
-                System.out.println("name");
+                break;
+            case "line":
+                this.rE.line(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(), parameterList.get(2).getDouble(), parameterList.get(3).getDouble(), parameterList.get(4).getDouble(), parameterList.get(5).getDouble(), parameterList.get(6).getDouble());
                 break;
             case "frect":
                 this.rE.frect(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(), parameterList.get(2).getDouble(), parameterList.get(3).getDouble(), parameterList.get(4).getDouble(), parameterList.get(5).getDouble(), parameterList.get(6).getDouble());
-                System.out.println("frect");
+                break;
+            case "rect":
+                this.rE.rect(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(), parameterList.get(2).getDouble(), parameterList.get(3).getDouble(), parameterList.get(4).getDouble(), parameterList.get(5).getDouble(), parameterList.get(6).getDouble());
                 break;
             case "size":
                 this.rE.setHeightWidth(parameterList.get(0).getDouble(), parameterList.get(1).getDouble());
-                System.out.println("set size");
                 break;
             case "circle":
                 this.rE.circle(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(),parameterList.get(2).getDouble(), parameterList.get(3).getDouble(),parameterList.get(4).getDouble(), parameterList.get(5).getDouble());
-                System.out.println("create circle");
                 break;
-            case "arc":
+           case "fcircle":
+                this.rE.fcircle(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(),parameterList.get(2).getDouble(), parameterList.get(3).getDouble(),parameterList.get(4).getDouble(), parameterList.get(5).getDouble());
+                break;
+             case "arc":
                 this.rE.arc(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(),parameterList.get(2).getDouble(), parameterList.get(3).getDouble(),parameterList.get(4).getDouble(), parameterList.get(5).getDouble(), parameterList.get(6).getDouble(), parameterList.get(7).getDouble(), parameterList.get(8).getDouble());
-                System.out.println("create arc");
+                break;
+            case "poly":
+                 this.rE.poly(parameterList);
+                break;
+            case "fpoly":
+                this.rE.fpoly(parameterList);
                 break;
             case "string":
                 int i = parameterList.size()-1;
@@ -69,11 +78,23 @@ public class Engine {
                 }
                 
                 this.rE.string(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(),parameterList.get(2).getDouble(), parameterList.get(3).getDouble(),parameterList.get(4).getDouble(), parameterList.get(5).getText(), sString);
-                System.out.println("create string");
                 break;
+            case "stringup":
+                int ii = parameterList.size() - 1;
+                int starti = 6;
+                String[] sStringi = new String[ii - starti];
+                int icounter = 0;
+                while (starti < ii) {
+                    sStringi[icounter] = parameterList.get(starti).getText();
+                    starti++;
+                    icounter++;
+                }
+
+                this.rE.stringUp(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(), parameterList.get(2).getDouble(), parameterList.get(3).getDouble(), parameterList.get(4).getDouble(), parameterList.get(5).getText(), sStringi);
+                break;
+
             case "transparent":
                 this.rE.transparent(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(),parameterList.get(2).getDouble());
-                System.out.println("create transparent");
                 break;
             case "end":
                 try {

@@ -31,7 +31,7 @@ public final class InternalHandler {
       
             if (this.outputFile == null){
                 
-               System.out.println("i " + text);
+             //  System.out.println("i " + text);
             }
             else{
                 
