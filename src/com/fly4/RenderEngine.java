@@ -160,7 +160,7 @@ public class RenderEngine {
         
         this.g2d.setColor(myColor);
         
-         this.g2d.drawRect((int)x1,(int)y1,(int)x2,(int)y2);
+         this.g2d.drawRect((int)x1,(int)y1,(int)x2 - (int)x1,(int)y2 - (int)y1);
         
         return "rect drawn";
     }
@@ -173,7 +173,7 @@ public class RenderEngine {
         this.g2d.setColor(myColor);
         
         
-         this.g2d.fillRect((int)x1,(int)y1,(int)x2,(int)y2);
+         this.g2d.fillRect((int)x1,(int)y1,(int)x2 - (int)x1,(int)y2 - (int) y1);
         
         return "rect drawn";
     }
@@ -315,6 +315,7 @@ public class RenderEngine {
     
     public String flood(int x, int y,Color tgtColor) {
         
+       
         
         
         return "filled";
@@ -469,7 +470,54 @@ public class RenderEngine {
         return "text drawn";
    }  
   
+    public String copyresized(int srcX,int srcY,int srcWidth,int srcHeight,int targetX,int targetY,int targetWidth,int targetHeight) throws IOException{
    
+            
+        if (this.g2d == null){
+            
+            this.buildImage();
+                    
+        }
+   
+           File inputFile = new File(this.inImageName);
+           BufferedImage inputImage = ImageIO.read(inputFile);
+           if (srcX<0){
+               srcX=inputImage.getMinX();
+           }
+           if (srcY<0){
+               srcY=inputImage.getMinY();
+           }
+           if (srcWidth<0){
+               srcWidth=inputImage.getWidth();
+           }
+           if (srcHeight<0){
+               
+               srcHeight = inputImage.getHeight();
+           }
+           
+           if (targetX<0){
+               targetX=0;
+           }
+           if (targetY<0){
+               targetY=0;
+           }
+           if (targetWidth<0){
+               targetWidth=this.width;
+           }
+           if (targetHeight<0){
+               targetHeight=this.height;
+           }
+           
+          
+           
+            g2d.drawImage(inputImage, targetX, targetY, targetWidth, targetHeight, null);
+           
+        
+        
+        return "copyresized";
+    }
+   
+    
     public String resize(){
         try
         {

@@ -92,7 +92,9 @@ public class Engine {
 
                 this.rE.stringUp(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(), parameterList.get(2).getDouble(), parameterList.get(3).getDouble(), parameterList.get(4).getDouble(), parameterList.get(5).getText(), sStringi);
                 break;
-
+            case "copyreized":
+                
+               break;
             case "transparent":
                 this.rE.transparent(parameterList.get(0).getDouble(), parameterList.get(1).getDouble(),parameterList.get(2).getDouble());
                 break;
