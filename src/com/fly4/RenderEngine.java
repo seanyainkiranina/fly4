@@ -11,6 +11,7 @@ import java.io.*;
 import java.util.ArrayList;
 import javax.imageio.*;
 import java.util.HashMap;
+import java.awt.geom.*;
 /**
  *
  * @author seany_000
@@ -24,13 +25,14 @@ public class RenderEngine {
     private BufferedImage inputImageBufferedImage;
     private BufferedImage outputImageBufferedImage;
     private Graphics2D g2d;
-    private HashMap<String,Color> colorMap;
-    
+    private final HashMap<String,Color> colorMap;
+    private final ArrayList<Object> listObjects;
    
     
     public RenderEngine(){
         
         this.colorMap = new HashMap<>();
+        this.listObjects = new ArrayList<>();
        
         
     }
@@ -160,7 +162,11 @@ public class RenderEngine {
         
         this.g2d.setColor(myColor);
         
-         this.g2d.drawRect((int)x1,(int)y1,(int)x2 - (int)x1,(int)y2 - (int)y1);
+        Rectangle rectangleShape = new Rectangle((int)x1,(int)y1,(int)x2-(int)x1,(int)y2-(int)y1);
+        
+        this.listObjects.add(rectangleShape);
+        
+         this.g2d.draw(rectangleShape);
         
         return "rect drawn";
     }
@@ -173,18 +179,30 @@ public class RenderEngine {
         this.g2d.setColor(myColor);
         
         
-         this.g2d.fillRect((int)x1,(int)y1,(int)x2 - (int)x1,(int)y2 - (int) y1);
+        Rectangle rectangleShape = new Rectangle((int)x1,(int)y1,(int)x2-(int)x1,(int)y2-(int)y1);
+        
+        this.listObjects.add(rectangleShape);
+        
+         this.g2d.draw(rectangleShape);
+         this.g2d.fill(rectangleShape);
         
         return "rect drawn";
     }
-    public String fill(double r, double g, double b)
+    public String fill(double x, double y,double r, double g, double b)
     {
         Color myColor = this.checkColor(r, g, b);
         
         this.g2d.setColor(myColor);
+            
         
-        
-         this.g2d.fillRect(0,this.height,this.width,this.height);
+         if (this.listObjects.isEmpty()){
+            this.g2d.fillRect(0,this.height,this.width,this.height);
+            return "DefaultFill";
+         }
+         
+         this.listObjects.stream().map((obj) -> (Shape)obj).filter((sp) -> (sp.contains(x,y))).forEach((sp) -> {
+             this.g2d.fill(sp);
+        });
        
         return "fill";
     }
@@ -209,9 +227,14 @@ public class RenderEngine {
         this.g2d.setColor(myColor);
         
         double rad = x2/2;
-   
-         this.g2d.drawOval((int) ((int)x1 - rad), (int) ((int) y1 -rad), (int)x2,(int) x2);
-                 // drawCircle((int)x1,(int)y1,(int)x2);
+        
+        Ellipse2D ovalShape;
+        ovalShape = new Ellipse2D.Double( (x1 - rad),  ( y1 -rad), x2, x2);
+        
+        this.listObjects.add(ovalShape);
+                
+         this.g2d.draw(ovalShape);
+         // drawCircle((int)x1,(int)y1,(int)x2);
         
         return "drawn";
     }
@@ -220,8 +243,13 @@ public class RenderEngine {
     {
          this.g2d.setColor(this.checkColor(r, g, b));
    
-         this.g2d.drawOval((int)x1,(int) y1, (int)x2,(int) y2);
-                 // drawCircle((int)x1,(int)y1,(int)x2);
+        Ellipse2D ovalShape;
+        ovalShape = new Ellipse2D.Double( x1,  y1, x2, y2);
+        
+        this.listObjects.add(ovalShape);
+                
+         this.g2d.draw(ovalShape);
+      
         
         return "drawn";
     }
@@ -230,7 +258,14 @@ public class RenderEngine {
     {
          this.g2d.setColor(this.checkColor(r, g, b));
    
-         this.g2d.fillOval((int)x1,(int) y1, (int)x2,(int) y2);
+        Ellipse2D ovalShape;
+        ovalShape = new Ellipse2D.Double( x1,  y1, x2, y2);
+        
+        this.listObjects.add(ovalShape);
+                
+         this.g2d.draw(ovalShape);
+         
+         this.g2d.fill(ovalShape);
                  // drawCircle((int)x1,(int)y1,(int)x2);
         
         return "drawn";
@@ -239,14 +274,23 @@ public class RenderEngine {
     
     public String fcircle(double x1,double y1,double x2,double r, double g, double b)
     {
+  
         Color myColor = this.checkColor(r, g, b);
         
         this.g2d.setColor(myColor);
         
         double rad = x2/2;
-   
-         this.g2d.fillOval((int) ((int)x1 - rad), (int) ((int) y1 -rad), (int)x2,(int) x2);
-                 // drawCircle((int)x1,(int)y1,(int)x2);
+        
+        Ellipse2D ovalShape;
+        ovalShape = new Ellipse2D.Double( (x1 - rad),  ( y1 -rad), x2, x2);
+        
+        this.listObjects.add(ovalShape);
+                
+         this.g2d.draw(ovalShape);
+         
+         this.g2d.fill(ovalShape);
+         
+        // drawCircle((int)x1,(int)y1,(int)x2);
                  
                  
         return "drawn";
@@ -308,6 +352,7 @@ public class RenderEngine {
         Color myColor = this.checkColor(r, g, b);
         this.g2d.setColor(myColor);
         this.g2d.drawPolygon(p);
+        this.listObjects.add(p);
 
         return "drawn";
 
@@ -355,6 +400,7 @@ public class RenderEngine {
         this.g2d.drawPolygon(p);
       
         this.g2d.fillPolygon(p);
+        this.listObjects.add(p);
    
         return "drawn";
         
@@ -397,7 +443,7 @@ public class RenderEngine {
             case "large":
                 fontSize = 15;
                 break;
-            case "giamt":
+            case "giant":
                 fontSize =20;
                 break;
             default:
@@ -439,7 +485,7 @@ public class RenderEngine {
             case "large":
                 fontSize = 15;
                 break;
-            case "giamt":
+            case "giant":
                 fontSize =20;
                 break;
             default:
