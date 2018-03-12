@@ -64,14 +64,22 @@ public class Controller{
             throw new Exception("Bad Command " + command);
         }
         
-        return this.map.get(command);
+        ArrayList alReturn = this.map.get(command);
+        
+        if (alReturn.isEmpty()){
+            
+            this.instanceParameters();
+        }
+        
+        return alReturn;
     }
     
     public void saveParmeterList(String command,ArrayList<Parameter> parameterList){
         this.map.put(command, parameterList);
     }
     
-    public Controller(){
+    private void instanceParameters(){
+        
         this.map = new HashMap<>();
         ArrayList<String> commands = new ArrayList<>();
         commands.add("new");
@@ -222,8 +230,8 @@ public class Controller{
                       this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD,StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_WORD,StreamTokenizer.TT_NUMBER));
                       break;
                    case "stringup":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -232,8 +240,8 @@ public class Controller{
                       this.map.get(command).add(3,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_WORD,StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_WORD,StreamTokenizer.TT_NUMBER));
                       break;
                    case "setpixel":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -261,8 +269,9 @@ public class Controller{
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_NUMBER));
-                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_WORD));
-                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_EOL));
+                      this.map.get(command).add(7,new Parameter(StreamTokenizer.TT_NUMBER));
+                      this.map.get(command).add(8,new Parameter(StreamTokenizer.TT_WORD));
+                      this.map.get(command).add(9,new Parameter(StreamTokenizer.TT_EOL));
                       break;
                   case "colourchange":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -281,7 +290,7 @@ public class Controller{
                       this.map.get(command).add(4,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(5,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(6,new Parameter(StreamTokenizer.TT_EOL,StreamTokenizer.TT_NUMBER));
-                break;
+                    break;
                     case "fpoly":
                       this.map.get(command).add(0,new Parameter(StreamTokenizer.TT_NUMBER));
                       this.map.get(command).add(1,new Parameter(StreamTokenizer.TT_NUMBER));
@@ -362,6 +371,11 @@ public class Controller{
        }
         }
         
+    }
+    
+    public Controller(){
+        
+        this.instanceParameters();
         
     }
 }

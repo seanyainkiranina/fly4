@@ -14,15 +14,22 @@ public class Parameter {
     private String text;
     private int kindOfParameter;
     private int alternateKindOfParameter;
+    private int otherAlternateKindOfParameter;
     
     public Parameter(int kindOfParameter){
         this.kindOfParameter = kindOfParameter;
         this.alternateKindOfParameter = 9999;
+        this.otherAlternateKindOfParameter = 9999;
     }
     
     public Parameter(int kindOfParameter,int alternateKindOfParameter){
         this.kindOfParameter = kindOfParameter;
         this.alternateKindOfParameter = alternateKindOfParameter;
+    }
+    public Parameter(int kindOfParameter, int alternateKindOfParameter, int otherKind){
+        this.kindOfParameter = kindOfParameter;
+        this.alternateKindOfParameter = alternateKindOfParameter;
+        this.otherAlternateKindOfParameter = otherKind;
     }
     
     
@@ -36,6 +43,14 @@ public class Parameter {
     }
     
     public String getText(){
+  
+        int local = 0;
+        if (this.text == null && this.number !=null){
+            
+            local = number.intValue();
+            
+            return String.valueOf(local);
+        }
         
         return this.text;
     }
@@ -59,6 +74,10 @@ public class Parameter {
         
         return this.alternateKindOfParameter;
         
+    }
+    public int getOtherKindOfParameter(){
+        
+        return this.otherAlternateKindOfParameter;
     }
     
     

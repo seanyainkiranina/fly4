@@ -27,7 +27,8 @@ public class RenderEngine {
     private Graphics2D g2d;
     private final HashMap<String,Color> colorMap;
     private final ArrayList<Object> listObjects;
-   
+    private final MasterEnum me = new MasterEnum();
+    
     
     public RenderEngine(){
         
@@ -191,9 +192,9 @@ public class RenderEngine {
     public String fill(double x, double y,double r, double g, double b)
     {
         Color myColor = this.checkColor(r, g, b);
-        
         this.g2d.setColor(myColor);
-            
+         
+        this.me.setCompleted(false);
         
          if (this.listObjects.isEmpty()){
             this.g2d.fillRect(0,this.height,this.width,this.height);
@@ -202,7 +203,13 @@ public class RenderEngine {
          
          this.listObjects.stream().map((obj) -> (Shape)obj).filter((sp) -> (sp.contains(x,y))).forEach((sp) -> {
              this.g2d.fill(sp);
+             this.me.setCompleted(true);
         });
+         
+         if (this.me.getCompleted()==false){
+             
+             this.g2d.setBackground(myColor);
+         }
        
         return "fill";
     }
@@ -358,14 +365,6 @@ public class RenderEngine {
 
     }
     
-    public String flood(int x, int y,Color tgtColor) {
-        
-       
-        
-        
-        return "filled";
-    }
-    
      public String fpoly(ArrayList<Parameter> polyOptions) throws Exception
     {
         
@@ -428,37 +427,39 @@ public class RenderEngine {
         
         this.g2d.setColor(myColor);
         
-        int fontSize =10;
+        int fontSize =this.me.getMedium();
         
         switch (size){
             case "tiny":
-                fontSize =5;
+                fontSize = this.me.getTiny();
                 break;
             case "small":
-                fontSize =10;
+                fontSize = this.me.getSmall();
                 break;
             case "medium":
-                fontSize =12;
+                fontSize = this.me.getMedium();
                 break;
             case "large":
-                fontSize = 15;
+                fontSize = this.me.getLarge();
                 break;
             case "giant":
-                fontSize =20;
+                fontSize = this.me.getGiant();
                 break;
             default:
-                fontSize =10;
+                fontSize = this.me.getMedium();
                 break;
         }
-        this.g2d.setFont(new Font("Courier", Font.PLAIN, fontSize));
+        this.g2d.setFont(new Font(this.me.getFontName(), this.me.getFontStyle(), fontSize));
         
         String outputString ="";
          for (int i = 0; i < text.length; i++)
          {
-             outputString = outputString + text[i] + " ";
+             if (text[i] != null){
+                outputString = outputString + text[i] + " ";
+             }
 
         }
-        this.g2d.drawString(outputString,x.intValue(), y.intValue());
+        this.g2d.drawString(outputString,x.intValue(), y.intValue()+fontSize);
         
         return "text drawn";
    }
@@ -469,44 +470,45 @@ public class RenderEngine {
         
         this.g2d.setColor(myColor);
         
-        int fontSize =10;
+        int fontSize =this.me.getMedium();
         int angle =90;
         
+      
         switch (size){
             case "tiny":
-                fontSize =5;
+                fontSize = this.me.getTiny();
                 break;
             case "small":
-                fontSize =10;
+                fontSize = this.me.getSmall();
                 break;
             case "medium":
-                fontSize =12;
+                fontSize = this.me.getMedium();
                 break;
             case "large":
-                fontSize = 15;
+                fontSize = this.me.getLarge();
                 break;
             case "giant":
-                fontSize =20;
+                fontSize = this.me.getGiant();
                 break;
             default:
-                fontSize =10;
+                fontSize = this.me.getMedium();
                 break;
-        }
-        
+        }  
         
         
         String outputString ="";
          for (int i = 0; i < text.length; i++)
          {
-             outputString = outputString + text[i] + " ";
-
+             if (text[i] != null){
+                outputString = outputString + text[i] + " ";
+             }
         }
         
         
         this.g2d.translate(x.floatValue(),y.floatValue());
         this.g2d.rotate(Math.toRadians(angle));
            
-        this.g2d.setFont(new Font("Courier", Font.PLAIN, fontSize));
+        this.g2d.setFont(new Font(this.me.getFontName(), this.me.getFontStyle(), fontSize));
      
         this.g2d.drawString(outputString,0, 0);
         
@@ -516,29 +518,56 @@ public class RenderEngine {
         return "text drawn";
    }  
   
-    public String copyresized(int srcX,int srcY,int srcWidth,int srcHeight,int targetX,int targetY,int targetWidth,int targetHeight) throws IOException{
+    public String copyresized(Double srcDX,Double srcDY,Double srcDWidth,Double srcDHeight,Double targetDX,Double targetDY,Double targetDWidth,Double targetDHeight,String inImage) throws IOException{
    
+        int srcX = srcDX.intValue();
+        int srcY = srcDY.intValue();
+        int srcWidth = srcDWidth.intValue();
+        int srcHeight = srcDHeight.intValue();
+        int targetX = targetDX.intValue();
+        int targetY = targetDY.intValue();
+        int targetWidth = targetDWidth.intValue();
+        int targetHeight =targetDHeight.intValue();
+                
             
         if (this.g2d == null){
             
             this.buildImage();
                     
         }
-   
-           File inputFile = new File(this.inImageName);
+      
+           File inputFile = new File(inImage);
            BufferedImage inputImage = ImageIO.read(inputFile);
            if (srcX<0){
                srcX=inputImage.getMinX();
+               
+               if (this.me.getVerbose()==1){
+                   System.out.println(srcX);
+               }
            }
            if (srcY<0){
                srcY=inputImage.getMinY();
+               
+               if (this.me.getVerbose()==1){
+                   System.out.println(srcY);
+               }
            }
            if (srcWidth<0){
                srcWidth=inputImage.getWidth();
+               
+               
+               if (this.me.getVerbose()==1){
+                   System.out.println(srcWidth);
+               }
            }
            if (srcHeight<0){
                
                srcHeight = inputImage.getHeight();
+               
+               
+               if (this.me.getVerbose()==1){
+                   System.out.println(srcHeight);
+               }
            }
            
            if (targetX<0){
@@ -553,10 +582,12 @@ public class RenderEngine {
            if (targetHeight<0){
                targetHeight=this.height;
            }
+ 
+            if (this.me.getVerbose()==1){
+                   System.out.println(targetX + " " + targetY + " " + targetWidth + " " + targetHeight);
+             }          
            
-          
-           
-            g2d.drawImage(inputImage, targetX, targetY, targetWidth, targetHeight, null);
+            this.g2d.drawImage(inputImage, targetX, targetY, targetWidth, targetHeight, null);
            
         
         

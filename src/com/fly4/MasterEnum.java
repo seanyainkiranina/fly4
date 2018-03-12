@@ -5,6 +5,8 @@
  */
 package com.fly4;
 
+import java.awt.Font;
+import java.awt.image.*;
 /**
  *
  * @author seany_000
@@ -22,6 +24,84 @@ public final class MasterEnum {
     private int type;
     private int line_number;
     private int verbose;
+    private boolean completed;
+    private int fontSize;
+    private String fontName;
+    private int fontWeight;
+    
+    public void setFontName(String fontName){
+        
+        this.fontName = fontName;
+    }
+    
+    public String getFontName(){
+        
+        return this.fontName;
+    }
+    
+    public void setFontSize(int size){
+        
+        this.fontSize = size;
+    }
+    
+    public int getFontStyle(){
+        
+        return this.fontWeight;
+    }
+    
+    public void setFontStyle(String style){
+        
+        switch(style){
+            case "italic":
+                this.fontWeight = Font.ITALIC;
+                break;
+            case "bold":
+                this.fontWeight = Font.BOLD;
+                break;
+            case "normal":
+                this.fontWeight = Font.PLAIN;
+                break;
+            case "tt":
+                this.fontWeight = Font.TRUETYPE_FONT;
+                break;
+            case "t1":
+                this.fontWeight = Font.TYPE1_FONT;
+                break;
+        }
+        
+    }
+    
+    public int getTiny(){
+        
+        return this.fontSize -5;
+    }
+    public int getSmall(){
+        
+        return this.fontSize;
+    }
+    public int getMedium(){
+        
+        return this.fontSize +5;
+    }
+    public int getLarge(){
+        
+        return this.fontSize +10;
+    }
+    public int getGiant(){
+        
+        return this.fontSize + 20;
+    }
+    
+    
+    public boolean getCompleted(){
+        
+        return this.completed;
+    }
+    
+    public void setCompleted(boolean status){
+       
+        this.completed =status;
+    }
 
     public String getOutFilename() {
 
@@ -78,7 +158,13 @@ public final class MasterEnum {
         this.written_out = MasterEnum.FALSE;
         this.line_number = 1;
         this.verbose = MasterEnum.FALSE;
+        this.completed = false;
+        this.fontSize = 13;
+        this.fontName="Courier";
+        this.fontWeight = Font.PLAIN;
+        
     }
+    
     public static final int FALSE = 0;
     public static final int TRUE = 1;
 
