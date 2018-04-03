@@ -59,6 +59,8 @@ public class Controller{
     private HashMap<String, ArrayList<Parameter>> map = new HashMap<>();
     
     public ArrayList<Parameter> parameterList(String command) throws Exception{
+   
+        
         if (this.map.containsKey(command)==false){
             
             throw new Exception("Bad Command " + command);
@@ -69,6 +71,7 @@ public class Controller{
         if (alReturn.isEmpty()){
             
             this.instanceParameters();
+            alReturn = this.map.get(command);
         }
         
         return alReturn;

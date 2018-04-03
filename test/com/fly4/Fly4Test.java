@@ -41,7 +41,7 @@ public class Fly4Test {
      * Test of main method, of class Fly4.
      */
     @Test
-    public void testMain() {
+    public void testMain() throws Exception {
         System.out.println("main");
         String[] args = null;
         Fly4.main(args);

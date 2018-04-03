@@ -131,5 +131,19 @@ public class ParameterTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of getOtherKindOfParameter method, of class Parameter.
+     */
+    @Test
+    public void testGetOtherKindOfParameter() {
+        System.out.println("getOtherKindOfParameter");
+        Parameter instance = null;
+        int expResult = 0;
+        int result = instance.getOtherKindOfParameter();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }

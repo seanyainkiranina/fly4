@@ -6,6 +6,8 @@
 package com.fly4;
 
 import java.io.*;
+import java.io.StringReader;
+
 
 /**
  *
@@ -101,6 +103,23 @@ public final class InternalHandler {
        }
        
        return MasterEnum.TRUE;
+   }
+   
+   public int setInString(String Line){
+            Reader r = new StringReader(Line);
+            this.stTokenizer = new StreamTokenizer(r);
+            this.stTokenizer.eolIsSignificant(true);
+            this.stTokenizer.ordinaryChar('-'); // Don't parse minus as part of numbers.
+            this.stTokenizer.ordinaryChar('/'); // Don't parse slash as part of numbers.
+            this.stTokenizer.wordChars('_', '_'); // Don't parse slash as part of numbers.
+            this.stTokenizer.wordChars('\\', '\\'); // Don't parse slash as part of numbers.
+            this.stTokenizer.wordChars(':', ':'); // Don't parse slash as part of numbers.
+            this.stTokenizer.wordChars('\'', '\''); // Don't parse slash as part of numbers.
+   
+            this.stTokenizer.whitespaceChars(' ', ' ');
+            this.stTokenizer.whitespaceChars(',', ',');
+            return MasterEnum.TRUE;
+       
    }
    
    public int setInFile(String filename){

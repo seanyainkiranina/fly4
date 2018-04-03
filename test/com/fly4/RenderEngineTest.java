@@ -227,12 +227,14 @@ public class RenderEngineTest {
     @Test
     public void testFill() {
         System.out.println("fill");
+        double x = 0.0;
+        double y = 0.0;
         double r = 0.0;
         double g = 0.0;
         double b = 0.0;
         RenderEngine instance = new RenderEngine();
         String expResult = "";
-        String result = instance.fill(r, g, b);
+        String result = instance.fill(x, y, r, g, b);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -276,27 +278,6 @@ public class RenderEngineTest {
         RenderEngine instance = new RenderEngine();
         String expResult = "";
         String result = instance.circle(x1, y1, x2, r, g, b);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of fOval method, of class RenderEngine.
-     */
-    @Test
-    public void testFOval() {
-        System.out.println("fOval");
-        double x1 = 0.0;
-        double y1 = 0.0;
-        double x2 = 0.0;
-        double y2 = 0.0;
-        double r = 0.0;
-        double g = 0.0;
-        double b = 0.0;
-        RenderEngine instance = new RenderEngine();
-        String expResult = "";
-        String result = instance.fOval(x1, y1, x2, y2, r, g, b);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -423,7 +404,7 @@ public class RenderEngineTest {
         Double x = null;
         Double y = null;
         String size = "";
-        String text = "";
+        String[] text = null;
         RenderEngine instance = new RenderEngine();
         String expResult = "";
         String result = instance.string(r, g, b, x, y, size, text);
@@ -444,10 +425,33 @@ public class RenderEngineTest {
         Double x = null;
         Double y = null;
         String size = "";
-        String text = "";
+        String[] text = null;
         RenderEngine instance = new RenderEngine();
         String expResult = "";
         String result = instance.stringUp(r, g, b, x, y, size, text);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of copyresized method, of class RenderEngine.
+     */
+    @Test
+    public void testCopyresized() throws Exception {
+        System.out.println("copyresized");
+        Double srcDX = null;
+        Double srcDY = null;
+        Double srcDWidth = null;
+        Double srcDHeight = null;
+        Double targetDX = null;
+        Double targetDY = null;
+        Double targetDWidth = null;
+        Double targetDHeight = null;
+        String inImage = "";
+        RenderEngine instance = new RenderEngine();
+        String expResult = "";
+        String result = instance.copyresized(srcDX, srcDY, srcDWidth, srcDHeight, targetDX, targetDY, targetDWidth, targetDHeight, inImage);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -134,6 +134,21 @@ public class InternalHandlerTest {
     }
 
     /**
+     * Test of setInString method, of class InternalHandler.
+     */
+    @Test
+    public void testSetInString() {
+        System.out.println("setInString");
+        String Line = "";
+        InternalHandler instance = new InternalHandler();
+        int expResult = 0;
+        int result = instance.setInString(Line);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
      * Test of setInFile method, of class InternalHandler.
      */
     @Test

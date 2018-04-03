@@ -54,7 +54,7 @@ public class EngineTest {
      * Test of execute method, of class Engine.
      */
     @Test
-    public void testExecute() {
+    public void testExecute() throws Exception {
         System.out.println("execute");
         String command = "";
         ArrayList<Parameter> parameterList = null;

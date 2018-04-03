@@ -61,7 +61,7 @@ public class RenderEngine {
         this.outputImageBufferedImage = new BufferedImage(this.width, this.height, BufferedImage.TYPE_4BYTE_ABGR);
         this.g2d = outputImageBufferedImage.createGraphics();
         
-        Color transparent = new Color(255,255,255,0); 
+        Color transparent = new Color(255,255,255,255); 
         
         this.g2d.setBackground(transparent);
         this.g2d.clearRect(0, 0, this.width, this.height);
@@ -305,7 +305,10 @@ public class RenderEngine {
     
     
     private Double parameterShift(ArrayList<Parameter> polyOptions){
-        
+        if (polyOptions.isEmpty()){
+            
+            return null;
+        }
         Parameter p = polyOptions.get(0);
         polyOptions.remove(0);
         
@@ -368,11 +371,18 @@ public class RenderEngine {
      public String fpoly(ArrayList<Parameter> polyOptions) throws Exception
     {
         
+        System.out.print(polyOptions.size());
+        
         Double r =  this.parameterShift(polyOptions);
         Double g =  this.parameterShift(polyOptions);
         Double b =  this.parameterShift(polyOptions);
         Double xPoint =0.0;
         Double yPoint =0.0;
+        
+        System.out.println(r);
+        System.out.println(g);
+        System.out.println(b);
+        
         
         int numberOfPoints = polyOptions.size();
         if (numberOfPoints % 2 !=0){
@@ -382,10 +392,13 @@ public class RenderEngine {
         }
         int halfPoints=numberOfPoints/2;
    
+        System.out.println(halfPoints);
+        
         int counter=0;
         Polygon p = new Polygon();
         while (counter<halfPoints){
             xPoint= this.parameterShift(polyOptions);
+            
             yPoint = this.parameterShift(polyOptions);
             if (xPoint != null && yPoint != null){
                     p.addPoint(xPoint.intValue(), yPoint.intValue());
@@ -411,7 +424,7 @@ public class RenderEngine {
             this.buildImage();
                     
         }
-       Color newColor = new Color(r.intValue(), g.intValue(), b.intValue(),0); 
+       Color newColor = new Color(r.intValue(), g.intValue(), b.intValue(),255); 
        this.g2d.setColor(newColor);
        String colorKey = Double.toHexString(r) + Double.toHexString(g) + Double.toHexString(b);
        this.colorMap.put(colorKey,newColor);
@@ -624,7 +637,8 @@ public class RenderEngine {
         
         
     }
-    
+
+ 
     
     
 }

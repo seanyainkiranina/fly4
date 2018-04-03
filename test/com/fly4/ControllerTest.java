@@ -44,27 +44,14 @@ public class ControllerTest {
     @Test
     public void testParameterList() throws Exception {
         System.out.println("parameterList");
-        String command = "";
+        String command = "fpoly";
         Controller instance = new Controller();
-        ArrayList<Parameter> expResult = null;
+        ArrayList<Parameter> expResult = new ArrayList<Parameter>();
+        
         ArrayList<Parameter> result = instance.parameterList(command);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of saveParmeterList method, of class Controller.
-     */
-    @Test
-    public void testSaveParmeterList() {
-        System.out.println("saveParmeterList");
-        String command = "";
-        ArrayList<Parameter> parameterList = null;
-        Controller instance = new Controller();
-        instance.saveParmeterList(command, parameterList);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+   
 }
